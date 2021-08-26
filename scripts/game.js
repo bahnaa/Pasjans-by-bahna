@@ -88,6 +88,8 @@ function drawRandomCardHandler() {
 
     cards.splice(index, 1);
 
+    dragCard.style.cursor = "pointer";
+
     if(cards.length==0) {
         drawCard.removeEventListener("click", drawRandomCardHandler);
         drawCard.style.backgroundImage = "none";
@@ -96,7 +98,7 @@ function drawRandomCardHandler() {
 
 drawCard.addEventListener("click", drawRandomCardHandler);
 
-function dragStart() { 
+function dragStart() {
     slotOne.classList.add("active");
     slotTwo.classList.add("active");
     slotThree.classList.add("active");
@@ -121,6 +123,9 @@ function cleanActive() {
 }
 
 function dragEnd() {
+    if(!dragCard.childElementCount==0) {
+        dragCard.style.cursor = "default";
+    }
     this.appendChild(oldThis);
     slotOne.removeEventListener("click", dragEnd);
     slotTwo.removeEventListener("click", dragEnd);
