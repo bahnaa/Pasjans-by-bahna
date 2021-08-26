@@ -44,7 +44,29 @@ body {
     border-radius: 10px;
 }
 
-.game__card-drag {
+.game__card-slot {
+    position: relative;
+}
+
+.game__card-slot.active {
+    animation: scale;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    cursor: pointer;
+}
+
+.game__card-slot.active:hover {
+    box-shadow: 2px 2px 8px 2px gold;
+    border: 2px solid gold;
+}
+
+.game__card-slot.active:hover>div {
+    box-shadow: none;
+    border: none;
+}
+
+.game__card-drag,
+.game__card-draggable {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,13 +75,40 @@ body {
     font-weight: bolder;
 }
 
+.game__card-drag {
+    position: relative;
+}
+
+.game__card-draggable {
+    position: absolute;
+    box-shadow: 3px 3px 1.5px 2px black;
+    background-color: white;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
 .game__card-draw {
     width: 200px;
     background-image: url(../images/card\ back\ black.png);
     background-size: contain;
+    cursor: pointer;
 }
 
 .game__card-draw:hover {
-    transform: scale(1.2);
-    transition: transform 0.75s;
+    box-shadow: 4px 4px 8px 2px black;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

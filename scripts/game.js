@@ -1,5 +1,9 @@
 const drawCard = document.querySelector(".game__card-draw");
 const dragCard = document.querySelector(".game__card-drag");
+const slotOne = document.querySelector('.game__card-slot-one');
+const slotTwo = document.querySelector('.game__card-slot-two');
+const slotThree = document.querySelector('.game__card-slot-three');
+const slotFour = document.querySelector('.game__card-slot-four');
 
 class Card {
     constructor(sign, value, color) {
@@ -69,11 +73,21 @@ cards[51] = new Card ("2", "1", "diamonds");
 
 function drawRandomCardHandler() {
     const index = Math.floor(Math.random()*(cards.length));
-    dragCard.innerHTML = cards[index].sign + "<br>" + cards[index].color;
-    if(dragCard.innerHTML.includes("diamonds") || dragCard.innerHTML.includes("hearts")) {
-        dragCard.style.color = "red";
-    } else {dragCard.style.color = "black"}
+
+    const renderDragCard = document.createElement("div");
+
+    renderDragCard.classList.add("game__card", "game__card-draggable");
+    renderDragCard.innerHTML = cards[index].sign + "<br>" + cards[index].color;
+    renderDragCard.addEventListener("click", dragStart);
+
+    if(renderDragCard.innerHTML.includes("diamonds") || renderDragCard.innerHTML.includes("hearts")) {
+        renderDragCard.style.color = "red";
+    } else {renderDragCard.style.color = "black"}
+
+    dragCard.appendChild(renderDragCard);
+
     cards.splice(index, 1);
+
     if(cards.length==0) {
         drawCard.removeEventListener("click", drawRandomCardHandler);
         drawCard.style.backgroundImage = "none";
@@ -81,3 +95,36 @@ function drawRandomCardHandler() {
 }
 
 drawCard.addEventListener("click", drawRandomCardHandler);
+
+function dragStart() { 
+    slotOne.classList.add("active");
+    slotTwo.classList.add("active");
+    slotThree.classList.add("active");
+    slotFour.classList.add("active");
+    this.removeEventListener("click", dragStart)
+    dragMiddle(this);
+}
+
+function dragMiddle(card) {
+    oldThis = card;
+    slotOne.addEventListener("click", dragEnd);
+    slotTwo.addEventListener("click", dragEnd);
+    slotThree.addEventListener("click", dragEnd);
+    slotFour.addEventListener("click", dragEnd)
+}
+
+function cleanActive() {
+    slotOne.classList.remove("active");
+    slotTwo.classList.remove("active");
+    slotThree.classList.remove("active");
+    slotFour.classList.remove("active");
+}
+
+function dragEnd() {
+    this.appendChild(oldThis);
+    slotOne.removeEventListener("click", dragEnd);
+    slotTwo.removeEventListener("click", dragEnd);
+    slotThree.removeEventListener("click", dragEnd);
+    slotFour.removeEventListener("click", dragEnd);
+    cleanActive()
+}
