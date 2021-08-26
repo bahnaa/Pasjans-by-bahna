@@ -31,16 +31,21 @@ body {
     justify-content: center;
 }
 
-
 .game__cards-draw {
     justify-content: space-between;
 }
 
 .game__card {
-    height: 240px;
+    height: 280px;
     width: 200px;
     border: 2px solid black;
     margin: 0 2rem;
     box-shadow: 2px 2px 8px 2px black;
     border-radius: 10px;
+}
+
+.game__card-random {
+    width: 200px;
+    background-image: url(../images/card\ back\ black.png);
+    background-size: contain;
 }
