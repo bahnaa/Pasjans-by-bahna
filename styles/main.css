@@ -44,6 +44,15 @@ body {
     border-radius: 10px;
 }
 
+.game__card-drag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
 .game__card-draw {
     width: 200px;
     background-image: url(../images/card\ back\ black.png);

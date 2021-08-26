@@ -66,3 +66,4 @@ cards[48] = new Card ("5", "4", "diamonds");
 cards[49] = new Card ("4", "3", "diamonds");
 cards[50] = new Card ("3", "2", "diamonds");
 cards[51] = new Card ("2", "1", "diamonds");
+
