@@ -72,29 +72,37 @@ cards[50] = new Card ("3", "2", "diamonds");
 cards[51] = new Card ("2", "1", "diamonds");
 
 function drawRandomCardHandler() {
+
+    cleanActive();
+
+    if(cards.length===0) {
+        drawCard.removeEventListener("click", drawRandomCardHandler);
+        drawCard.style.backgroundImage = "none";
+        return;
+    }
+
     const index = Math.floor(Math.random()*(cards.length));
 
     const renderDragCard = document.createElement("div");
 
+    renderDragCard.id = cards[index].value + " " + cards[index].color;
+
     renderDragCard.classList.add("game__card", "game__card-draggable");
     renderDragCard.innerHTML = cards[index].sign + "<br>" + cards[index].color;
-    renderDragCard.addEventListener("click", dragStart);
 
     if(renderDragCard.innerHTML.includes("diamonds") || renderDragCard.innerHTML.includes("hearts")) {
         renderDragCard.style.color = "red";
-    } else {renderDragCard.style.color = "black"}
+    } else {renderDragCard.style.color = "black"};
+
+    renderDragCard.addEventListener("click", dragStart);
 
     dragCard.appendChild(renderDragCard);
-
+    
     cards.splice(index, 1);
 
     dragCard.style.cursor = "pointer";
-
-    if(cards.length==0) {
-        drawCard.removeEventListener("click", drawRandomCardHandler);
-        drawCard.style.backgroundImage = "none";
-    }
 }
+    
 
 drawCard.addEventListener("click", drawRandomCardHandler);
 
@@ -123,10 +131,25 @@ function cleanActive() {
 }
 
 function dragEnd() {
+
     if(!dragCard.childElementCount==0) {
         dragCard.style.cursor = "default";
     }
-    this.appendChild(oldThis);
+
+    // oldThis = karta którą przenosimy
+    // this = slot w który klikamy
+
+    if(this.lastElementChild == undefined) {if(!oldThis.id.includes("13")){
+        console.log("nie masz asa");
+        return;
+    } else {
+        console.log("masz asa");
+        this.appendChild(oldThis);
+    }};
+
+    // if(this.lastElementChild!= undefined) {if(this.lastElementChild.id.includes("diamonds")) {console.log(`Slot ${this.className} just got new diamond card`)}};
+
+    // this.appendChild(oldThis);
     slotOne.removeEventListener("click", dragEnd);
     slotTwo.removeEventListener("click", dragEnd);
     slotThree.removeEventListener("click", dragEnd);
