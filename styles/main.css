@@ -44,8 +44,13 @@ body {
     border-radius: 10px;
 }
 
-.game__card-random {
+.game__card-draw {
     width: 200px;
     background-image: url(../images/card\ back\ black.png);
     background-size: contain;
+}
+
+.game__card-draw:hover {
+    transform: scale(1.2);
+    transition: transform 0.75s;
 }
