@@ -97,10 +97,18 @@ function drawRandomCardHandler() {
     dragCard.style.cursor = "pointer";  
 
     if(cards.length===0) {
-    drawCard.removeEventListener("click", drawRandomCardHandler);
-    drawCard.style.backgroundImage = "none";
-    drawCard.style.cursor = "default";
+        drawCard.removeEventListener("click", drawRandomCardHandler);
+        drawCard.style.backgroundImage = "none";
+        drawCard.style.cursor = "default";
     }
+
+    // if(cards.length===0) {
+    //     for (i=0; i<dragCard.childElementCount;i++) {
+    //         cards[i] = new Card("")
+    //     }
+    // }
+
+    
 }
     
 
@@ -148,7 +156,7 @@ function dragEnd() {
     return sign ===" ";})+1, 100)===oldThis.id.substring(oldThis.id.split("").findIndex((sign) => {
     return sign ===" ";})+1, 100)){
         if(+this.lastElementChild.id.substring(0,this.lastElementChild.id.split("").findIndex((sign) => {
-    return sign ===" ";}))===+oldThis.lastElementChild.id.substring(0,oldThis.lastElementChild.id.split("").findIndex((sign) => {
+    return sign ===" ";}))===+oldThis.id.substring(0,oldThis.id.split("").findIndex((sign) => {
     return sign ===" ";}))+1){
         this.appendChild(oldThis);
         oldThis.removeEventListener("click", dragStart);
@@ -158,8 +166,6 @@ function dragEnd() {
     } else {
         console.log("inny kolor");
     };
-
-    console.log("check");
 
     slotOne.removeEventListener("click", dragEnd);
     slotTwo.removeEventListener("click", dragEnd);
