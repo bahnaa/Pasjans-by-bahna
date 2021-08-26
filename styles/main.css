@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    height: 75%;
+    width: 75%;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly
+}
+
+.game__cards-places,
+.game__cards-draw {
+    display: flex;
+    align-items: center;
+    height: 45%;
+}
+
+.game__cards-places {
+    justify-content: center;
+}
+
+
+.game__cards-draw {
+    justify-content: space-between;
+}
+
+.game__card {
+    height: 240px;
+    width: 200px;
+    border: 2px solid black;
+    margin: 0 2rem;
+    box-shadow: 2px 2px 8px 2px black;
+    border-radius: 10px;
+}
