@@ -111,7 +111,6 @@ function dragStart() {
     slotTwo.classList.add("active");
     slotThree.classList.add("active");
     slotFour.classList.add("active");
-    // this.removeEventListener("click", dragStart)
     dragMiddle(this);
 }
 
@@ -141,8 +140,6 @@ function dragEnd() {
 
     if(this.lastElementChild == undefined) {if(!oldThis.id.includes("13")){
         console.log("nie masz asa");
-        cleanActive();
-        return;
     } else {
         console.log("masz asa");
         this.appendChild(oldThis);
@@ -150,19 +147,20 @@ function dragEnd() {
     }} else if(this.lastElementChild.id.substring(this.lastElementChild.id.split("").findIndex((sign) => {
     return sign ===" ";})+1, 100)===oldThis.id.substring(oldThis.id.split("").findIndex((sign) => {
     return sign ===" ";})+1, 100)){
-        if(this.lastElementChild.id.substring(0,this.lastElementChild.id.split("").findIndex((sign) => {
-    return sign ===" ";}))===oldThis.lastElementChild.id.substring(0,oldThis.lastElementChild.id.split("").findIndex((sign) => {
+        if(+this.lastElementChild.id.substring(0,this.lastElementChild.id.split("").findIndex((sign) => {
+    return sign ===" ";}))===+oldThis.lastElementChild.id.substring(0,oldThis.lastElementChild.id.split("").findIndex((sign) => {
     return sign ===" ";}))+1){
         this.appendChild(oldThis);
         oldThis.removeEventListener("click", dragStart);
+    } else {
+        console.log("za duża różnica kart");
     }
+    } else {
+        console.log("inny kolor");
     };
 
-    console.log("chej");
+    console.log("check");
 
-    // if(this.lastElementChild!= undefined) {if(this.lastElementChild.id.includes("diamonds")) {console.log(`Slot ${this.className} just got new diamond card`)}};
-
-    // this.appendChild(oldThis);
     slotOne.removeEventListener("click", dragEnd);
     slotTwo.removeEventListener("click", dragEnd);
     slotThree.removeEventListener("click", dragEnd);
