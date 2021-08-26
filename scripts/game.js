@@ -75,12 +75,6 @@ function drawRandomCardHandler() {
 
     cleanActive();
 
-    if(cards.length===0) {
-        drawCard.removeEventListener("click", drawRandomCardHandler);
-        drawCard.style.backgroundImage = "none";
-        return;
-    }
-
     const index = Math.floor(Math.random()*(cards.length));
 
     const renderDragCard = document.createElement("div");
@@ -96,11 +90,17 @@ function drawRandomCardHandler() {
 
     renderDragCard.addEventListener("click", dragStart);
 
-    dragCard.appendChild(renderDragCard);
-    
-    cards.splice(index, 1);
+    cards.splice(index, 1);  
 
-    dragCard.style.cursor = "pointer";
+    dragCard.appendChild(renderDragCard);
+
+    dragCard.style.cursor = "pointer";  
+
+    if(cards.length===0) {
+    drawCard.removeEventListener("click", drawRandomCardHandler);
+    drawCard.style.backgroundImage = "none";
+    drawCard.style.cursor = "default";
+    }
 }
     
 
@@ -131,7 +131,7 @@ function cleanActive() {
 
 function dragEnd() {
 
-    if(!dragCard.childElementCount==0) {
+    if(dragCard.childElementCount===0) {
         dragCard.style.cursor = "default";
     }
 
