@@ -68,12 +68,16 @@ cards[50] = new Card ("3", "2", "diamonds");
 cards[51] = new Card ("2", "1", "diamonds");
 
 function drawRandomCardHandler() {
-    const index = Math.floor(Math.random()*52);
-    console.log(cards[index]);
+    const index = Math.floor(Math.random()*(cards.length));
     dragCard.innerHTML = cards[index].sign + "<br>" + cards[index].color;
     if(dragCard.innerHTML.includes("diamonds") || dragCard.innerHTML.includes("hearts")) {
         dragCard.style.color = "red";
     } else {dragCard.style.color = "black"}
+    cards.splice(index, 1);
+    if(cards.length==0) {
+        drawCard.removeEventListener("click", drawRandomCardHandler);
+        drawCard.style.backgroundImage = "none";
+    }
 }
 
 drawCard.addEventListener("click", drawRandomCardHandler);
