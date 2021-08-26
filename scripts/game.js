@@ -145,7 +145,11 @@ function dragEnd() {
     } else {
         console.log("masz asa");
         this.appendChild(oldThis);
-    }};
+    }} else if(this.lastElementChild.id.substring(this.lastElementChild.id.split("").findIndex((sign) => {
+    return sign ===" ";})+1, 100)===oldThis.id.substring(oldThis.id.split("").findIndex((sign) => {
+    return sign ===" ";})+1, 100)){
+        this.appendChild(oldThis);
+    } else {return};
 
     // if(this.lastElementChild!= undefined) {if(this.lastElementChild.id.includes("diamonds")) {console.log(`Slot ${this.className} just got new diamond card`)}};
 
