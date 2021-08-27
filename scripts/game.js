@@ -4,6 +4,7 @@ const slotOne = document.querySelector('.game__card-slot-one');
 const slotTwo = document.querySelector('.game__card-slot-two');
 const slotThree = document.querySelector('.game__card-slot-three');
 const slotFour = document.querySelector('.game__card-slot-four');
+const shuffleBtn = document.querySelector(".game__shuffle-btn");
 
 class Card {
     constructor(sign, value, color) {
@@ -13,7 +14,7 @@ class Card {
     }
 }
 
-const cards = Array(51);
+const cards = Array(52);
 
 cards[0] = new Card ("A", "13", "spades");
 cards[1] = new Card ("K", "12", "spades");
@@ -96,17 +97,16 @@ function drawRandomCardHandler() {
 
     dragCard.style.cursor = "pointer";  
 
-    if(cards.length===0) {
-        drawCard.removeEventListener("click", drawRandomCardHandler);
-        drawCard.style.backgroundImage = "none";
-        drawCard.style.cursor = "default";
-    }
-
     // if(cards.length===0) {
-    //     for (i=0; i<dragCard.childElementCount;i++) {
-    //         cards[i] = new Card("")
-    //     }
+    //     drawCard.removeEventListener("click", drawRandomCardHandler);
+    //     drawCard.style.backgroundImage = "none";
+    //     drawCard.style.cursor = "default";
     // }
+
+    if(cards.length===0) {
+        shuffleBtn.disabled = false;
+        drawCard.style.backgroundImage = "none";
+    }
 
     
 }
@@ -153,11 +153,11 @@ function dragEnd() {
         this.appendChild(oldThis);
         oldThis.removeEventListener("click", dragStart);
     }} else if(this.lastElementChild.id.substring(this.lastElementChild.id.split("").findIndex((sign) => {
-    return sign ===" ";})+1, 100)===oldThis.id.substring(oldThis.id.split("").findIndex((sign) => {
-    return sign ===" ";})+1, 100)){
+    return sign ===" "})+1, 100)===oldThis.id.substring(oldThis.id.split("").findIndex((sign) => {
+    return sign ===" "})+1, 100)){
         if(+this.lastElementChild.id.substring(0,this.lastElementChild.id.split("").findIndex((sign) => {
-    return sign ===" ";}))===+oldThis.id.substring(0,oldThis.id.split("").findIndex((sign) => {
-    return sign ===" ";}))+1){
+    return sign ===" "}))===+oldThis.id.substring(0,oldThis.id.split("").findIndex((sign) => {
+    return sign ===" "}))+1){
         this.appendChild(oldThis);
         oldThis.removeEventListener("click", dragStart);
     } else {
@@ -173,3 +173,24 @@ function dragEnd() {
     slotFour.removeEventListener("click", dragEnd);
     cleanActive()
 }
+
+function shuffleHandler() {
+    drawCard.style.backgroundImage = `url(../images/card\\ back\\ black.png`;
+
+    const dragCardCounter = dragCard.childElementCount;
+
+    for (i=0; i<dragCardCounter; i++) {
+        cards[i] = new Card(
+            dragCard.lastElementChild.innerHTML.substring(0, dragCard.lastElementChild.innerHTML.split("").findIndex((sign) => {
+            return sign === "<"})), 
+            dragCard.lastElementChild.id.substring(0,dragCard.lastElementChild.id.split("").findIndex((sign) => {
+            return sign === " "})), 
+            dragCard.lastElementChild.id.substring(dragCard.lastElementChild.id.split("").findIndex((sign) => {
+            return sign === " "})+1, 100)
+            );
+            dragCard.lastElementChild.remove();
+        }
+    shuffleBtn.disabled = true;
+};
+
+shuffleBtn.addEventListener("click", shuffleHandler);
