@@ -106,6 +106,7 @@ function drawRandomCardHandler() {
     if(cards.length===0) {
         shuffleBtn.disabled = false;
         drawCard.style.backgroundImage = "none";
+        drawCard.removeEventListener("click", drawRandomCardHandler);
     }
 
     
@@ -172,6 +173,10 @@ function dragEnd() {
     slotThree.removeEventListener("click", dragEnd);
     slotFour.removeEventListener("click", dragEnd);
     cleanActive()
+
+    if(dragCard.childElementCount===0 && cards.length===0) {
+        console.log("Congratulations!");
+    }
 }
 
 function shuffleHandler() {
@@ -191,6 +196,7 @@ function shuffleHandler() {
             dragCard.lastElementChild.remove();
         }
     shuffleBtn.disabled = true;
+    drawCard.addEventListener("click", drawRandomCardHandler);
 };
 
 shuffleBtn.addEventListener("click", shuffleHandler);
